@@ -1,0 +1,26 @@
+version: '3.3'
+
+
+services:
+  my-flask-app1:    # it's a namespace
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - 8000:5000
+
+  my-flask-app2:    # it's a namespace
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - 9000:5000
+# this is how you can run two container for two different task
+
+  my-flask-app-test:    # it's a namespace
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 10000:5001
+# your QA and unit test can run in two different container

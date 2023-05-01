@@ -1,0 +1,26 @@
+# This will create Build and deploy it to AWS Elastic Beanstalk
+
+sudo: required
+language: generic
+
+services:
+  - docker
+
+script:
+    - pytest
+
+before_install:
+  # - docker build -t kuntalsamantadocker/project-docker-flask -f Dockerfile.dev .
+  - docker build -t kuntalsamantadocker/project-docker-flask .
+
+deploy:
+  provider: elasticbeanstalk
+  region: 'us-east-1[your-region-name]'
+  app: 'docker[your-app-name]'
+  env: 'docker-env[your-env-name]'
+  bucket_name: 'elasticbeanstalk-us-east-1-923445559289[your-bucket-name]'
+  bucket_path: 'docker[what is your app-name that will be same your bucket_path]'
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY

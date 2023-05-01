@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  web:
+    image: my-stack-demo
+    build: .
+    ports:
+      - "8000:8000"
+    deploy:
+      replicas: 2
+  redis:
+    image: redis:alpine
+
+
+# The build option is ignored when deploying a stack in swarm mode The docker stack command does not build images before deploying

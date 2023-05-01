@@ -1,0 +1,42 @@
+version: '3.3'
+
+services:
+
+  my-django-docker-app:
+    build: ./
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - 8000:8000
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://my-django-docker-app:8000"]
+    #   interval: 10s
+    #   timeout: 10s
+    #   start_period: 10s
+    #   retries: 3
+    depends_on:
+      - run-migrate
+      - my-unit-test
+      - redis
+      - celery
+      - celery-beat
+
+  run-migrate:
+    build: ./
+    command: python manage.py migrate
+  
+  my-unit-test:
+    build: ./
+    command: python manage.py test
+
+  redis:
+    image: redis:alpine
+
+  celery:
+    build: ./
+    image: my-celery-image    # default name = django-with-docker_celery
+    command: celery -A core worker -l info
+
+  celery-beat:
+    build: ./
+    image: my-celery-beat-image   # default name = django-with-docker_celery-beat  [we can overrite it]
+    command: celery -A core beat -l info

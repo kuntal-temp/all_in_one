@@ -1,0 +1,16 @@
+version: '3.3'
+
+
+services:
+
+  my-redis:
+    image: 'redis:latest'
+
+  my-flask-app:    # it's a namespace
+    build: ./
+    environment:
+      - REDIS_HOST=my-redis
+      - REDIS_PORT=6379
+    command: python test_code.py
+    ports:
+      - 8000:5000

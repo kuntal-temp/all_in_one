@@ -1,0 +1,5 @@
+Flask==2.0.2
+requests==2.26.0
+structlog==21.4.0
+redis==4.0.2
+pytest==6.2.5

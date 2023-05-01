@@ -1,0 +1,16 @@
+version: '3.3'
+
+
+services:
+
+  my-postgres-db:  # it's a namespace
+    image: postgres:12.0-alpine
+
+  my-redis-cache:  # it's a namespace
+    image: redis:latest
+
+  my-flask-app:    # it's a namespace
+    build: .
+    ports:
+      - 8000:5000
+

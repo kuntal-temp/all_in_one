@@ -1,0 +1,9 @@
+version: '3.3'
+
+services:
+  my-flask-app-test:    # it's a namespace
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 10000:5001

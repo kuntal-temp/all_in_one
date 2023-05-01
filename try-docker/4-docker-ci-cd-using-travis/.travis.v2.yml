@@ -1,0 +1,21 @@
+# This will create Build and Push to Docker Hub
+
+sudo: required
+language: generic
+
+services:
+  - docker
+
+script:
+    - pytest
+
+before_install:
+  # - docker build -t kuntalsamantadocker/project-docker-flask -f Dockerfile.dev .
+  - docker build -t kuntalsamantadocker/project-docker-flask .
+
+after_success:
+  - docker build -t kuntalsamantadocker/project-docker-flask .
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push kuntalsamantadocker/project-docker-flask

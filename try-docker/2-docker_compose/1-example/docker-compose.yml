@@ -1,0 +1,10 @@
+version: '3.3'
+
+services:
+  my-nginx:
+    image: nginx:1.11
+    ports:
+      - 80:80
+
+  my-website:
+    image: httpd:latest
